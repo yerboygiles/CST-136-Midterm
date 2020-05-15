@@ -1,0 +1,45 @@
+Requirements - at a minimum:
+
+-Inheritance hierarchy with at least 3 levels (meaning base class, class derived from base class, class derived from the derived class) - Cashier, StockWorker, Floor?
+	3 or more classes at the most derived level - good
+	At least 1 set of methods illustrating function hiding/overriding - N/A
+	At least 1 set of methods illustrating virtual - good
+	At least 1 non-inherited member function and at least 1 non-inherited data member in each class - name?
+	Some sort of dynamic array in the base class with methods that add and remove elements - N/A
+	Diamond inheritance - not quite, but I could see all 3 of the grandchild classes also 
+-Class illustrating aggregation or composition of the base class (meaning a class that contains the base class) - yes?.. ish?
+-6 separate operators implemented/overloaded between all of the classes. - [], ==, <=, >=, >. need one more, but would be easy to implement the < operator into Floor.
+Put another way if you have 3 implementations/overloads of the plus operator it just counts as just 1 of the 6 separate operators you need to implement.
+	Note: copy/move assignment operators do not count towards the 6 separate operator minimum
+-Function overloading in some form that isn’t constructors or operators - not seeing any
+-When invalid inputs are received to functions/operators generate appropriate errors - can't quite tell just from the diagram. 
+
+
+Notes:
+
+So, first off, I believe that this is a solid idea, but a lot of this can be done with aggregation, which is shown, but not much inheritance. If I were to do this, I'd have
+the Store be the base class to other derived "subspecies" of Store, and have it aggregate a different base Worker class that has derived Cashiers, Stock workers, etc. 
+I would have organized it a much different way, but there is definitely a way to accomplish what is required through this setup, although it will need some upgrades/changes
+in order to meet those requirements. 
+
+There are 3 classes at the most derived level(Cashier,StockWorker,Floor), but I think they may be aggregated, not inherited. I'm not completely sure. 
+
+I don't see any function hiding/overriding, but there can definitely be some done. The Manager and Cashier could both be able to do certain jobs(functions),
+because the Manager should know how to work the register, etc. That is another reason I find the Cashier inheriting from Manager confusing, but they could definitely 
+potentially model some sort of diamond inheritance.
+
+There are multiple classes with virtual functions. Not sure if they're using virtual in the most obvious way, but they seem to be using it anyways. 
+
+I don't believe there is, but I think that the Name member variable could definitely be inherited, but in the diagram, it is renamed with each different class. 
+
+I don't see any sort of dynamic array being used, but I would recommend maybe some sort of enum, maybe for customers in the store, or being served? Not sure.
+
+I don't see diamond inheritance, but like I said before, I could see Cashier and Manager maybe supporting some sort of diamond inheritance. 
+
+Like I said, there needs to be one more operator overload to meet the requirements, and it would be easy to apply the inverse of operator> in the Floor class, 
+just using operator< to give the opposite return value or something along those lines.
+
+I don't see any function overloading, but there is definitely some that can be done. You can have SpendMoney() also take different types of ints, or floats, etc. 
+
+I can't quite tell if there are appropriate errors generated just from the diagram, but with the operator[] in Store, there can be some error handling to throw
+out_of_range errors. 

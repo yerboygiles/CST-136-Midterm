@@ -1,0 +1,64 @@
+I'd like it to be as "realistic" as possible, so I will implement it that way.
+
+I will start by instantiating one of each flora, so one bush, one tree, and one flower
+for the human(s) to interact with, as well as a rock that is rich, and a rock that
+isn't(contains iron vs doesn't contain iron). 
+
+Then, I'll instantiate some Humans with different names, a dog, and a chicken. 
+I will have the Human first use the Harvest() function to "harvest" the instantiated bush,
+which then calls the Harvestable's beHarvested() function, which will return the class that
+will then be stored in the instantiated Human's inventory. Also, the beHarvested() function 
+will also lower the value of m_growth of the Bush, as will be defined in the redeclaration in
+the Flora class.
+
+The Human will then use the DisplayItems() function to display everything in its inventory,
+which should just be the Berry. I will then have the Human "eat" the Berry in it's inventory.
+When the human is constructed, two of its statuses in the statuschain array will be Hungry, 
+Sad, and Alive. When it uses the EatFromInventory() function, it will search its array
+for something edible, and when it does, it will remove the Hungry status, and then remove the 
+item it "ate".
+
+I will then have the human call the Harvest() fn on a Flower, which will add Fiber to the humans
+inventory array, and it will also remove the Sad status from the human(cause flowers make people
+happy). 
+
+The Human will then call the Harvest() on a tree, as well as a rock that has m_richrock set to 
+false. This will add the classes Wood and Rock to the human's inventory array. 
+The Human will then use the Craft() function, and construct the "Tool" class, by cross-checking
+his inventory with the m_resourcesneeded using the operator[] in the craftable class.
+
+Then, the Dog will use Bark() on the human, giving the Scared status to the Human's status array.
+The Dog will then use Bite() on the human, giving the injured status to the human's status array,
+as well as lowering the m_health of the Human by a certain amount, based on the m_size of the dog.
+
+The Human will then use the attack function on the Chicken repeatedly, until the status of the 
+chicken is "dead", and the human will then use the Harvest() function on the chicken, and add the
+feather and Meat to its inventory array, and will deconstruct the Chicken,
+The human will then use the EatFromInventory() function to eat the meat, which will remove the 
+Scared status(cause eating meat makes you empowered), remove the injured status, and regain his
+m_health back to the max value(250).
+
+The human will then use it's Invent() function, accompanied by human input, to invent a new 
+craftable item class, specifying amount of resources needed, what specific resources, and then
+it can be crafted by the human using it's Craft() function later on, if the Human has the required
+resources in it's inventory array. 
+
+After harvesting Flora, it must grow back, so flora can use the NurtureFlora() function to help
+grow the plants back so they can be harvested again, which calls the Flora's operator++ function
+which increments the m_growth, and when m_growth surpasses a certain threshold, it calls Grow(),
+which returns the Resource to it's m_resource, because when a Flora is harvested, it's m_resource
+is set to NULL. 
+
+Then, another human will be instantiated, this time it's m_sex will be initialized as Female, so
+the other human can reproduce with it. If the humans don't have any sick, injured, or dead statuses,
+the child will take on from it's parents, taking statuses such as beautiful or ugly, and will also 
+have a larger m_size based on random factors as well as the m_size of the parents, and how far the 
+m_health of the parents is above a certain const threshold. They will reproduce using the operator+
+function.
+
+any object can be compared to another using the operator< or operator> function for m_size, but resource 
+will hide the function and redeclare to use m_value instead. m_value may be implemented into certain 
+statuses for resources and tools to see how much damage they would do/etc. 
+
+I may add more testing/functions, because this is really just an outline. Things may change slightly, but 
+this is what will happen.
