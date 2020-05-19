@@ -1,17 +1,27 @@
 #pragma once
 #include "BaseNaturalObj.h"
-enum ResourceType {Apple,Berry,Fiber,Feather,Wood,Stone,Iron,Craftable};
 
 class Resource :
 	public BaseNaturalObj
 {
 public:
-	string resourcetostring[16] = {
-		"Apple","Berry","Fiber","Feather","Wood","Stone","Iron","Craftable"
-};
+	Resource(const Resource& other);
+	Resource& operator=(const Resource& other);
+	Resource(Resource&& other);
+	Resource& operator=(Resource&& other);
+	Resource();
+	Resource(string name,int val, bool edible, ResourceType type);
+	~Resource();
+	bool operator==(Resource other);
+	uint8 getValue();
+	bool getEdibility();
+	ResourceType getType();
 protected:
+	uint8 m_size = 1;
 	uint8 m_value;
 	bool m_edible;
+	ResourceType m_type;
+	string m_objectname;
 
 };
 

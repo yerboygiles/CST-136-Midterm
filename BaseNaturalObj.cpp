@@ -1,11 +1,21 @@
 #include "BaseNaturalObj.h"
 
-BaseNaturalObj::BaseNaturalObj() 
-	:m_objectname("BaseNaturalObj"),
-	m_size(0), 
-	m_statuschain(nullptr),
-	m_statussize(0)
+BaseNaturalObj::BaseNaturalObj()
+	:m_statuschain(new Status[1])
 {
+	m_statuschain[0] = active;
+}
+
+BaseNaturalObj::BaseNaturalObj(string name, uint8 size)
+	:m_objectname(name),m_size(size),
+	m_statuschain(new Status[1])
+{
+	m_statuschain[0] = active;
+}
+
+BaseNaturalObj::BaseNaturalObj(Status status)
+{
+	AddStatus(status);
 }
 
 BaseNaturalObj::~BaseNaturalObj()
@@ -17,6 +27,11 @@ BaseNaturalObj::~BaseNaturalObj()
 uint8 BaseNaturalObj::getSize()
 {
 	return m_size;
+}
+
+void BaseNaturalObj::setSize(uint8 size)
+{
+	m_size = size;
 }
 
 void BaseNaturalObj::AddStatus(Status newstatus)
@@ -38,6 +53,9 @@ void BaseNaturalObj::AddStatus(Status newstatus)
 	}
 	delete[] resize_statuschain;
 	resize_statuschain = nullptr;
+	cout << m_objectname
+		<< " is now "
+		<< statustostring[newstatus] << endl;
 }
 
 void BaseNaturalObj::RemoveStatus(Status rmvstatus)
@@ -64,6 +82,9 @@ void BaseNaturalObj::RemoveStatus(Status rmvstatus)
 	}
 	delete[] resize_statuschain;
 	resize_statuschain = nullptr;
+	cout << m_objectname
+		<< " is no longer "
+		<< statustostring[rmvstatus] << endl;
 }
 
 bool BaseNaturalObj::CheckStatus(Status chkstatus)
@@ -74,14 +95,21 @@ bool BaseNaturalObj::CheckStatus(Status chkstatus)
 			there=true;
 		}
 	}
+
+	/*cout << m_objectname
+		<< " is ";
+	if (!there) {
+		cout << "not ";
+	}
+	cout << statustostring[chkstatus] << endl;*/
 	return there;
 }
 
 void BaseNaturalObj::DisplayStatus()
 {
-	cout << m_objectname << "has the statuses: " << endl;
+	cout << m_objectname << " is ";
 	for (int i = 0; i < m_statussize; i++) {
-		cout << statustostring[m_statuschain[i]] << endl;
+		cout << statustostring[m_statuschain[i]];
 	}
 }
 
@@ -93,4 +121,40 @@ bool BaseNaturalObj::operator<(BaseNaturalObj other)
 bool BaseNaturalObj::operator>(BaseNaturalObj other)
 {
 	return m_size > other.getSize();
+}
+
+string BaseNaturalObj::getObjectName()
+{
+	return m_objectname;
+}
+
+void BaseNaturalObj::setObjectName(string name)
+{
+	m_objectname = name;
+}
+
+void BaseNaturalObj::operator++()
+{
+	if (m_size != 250) {
+		m_size++;
+		cout << m_objectname
+			<< " has grown in size." << endl;
+	}
+	else {
+		cout << m_objectname
+			<< " is at the size maximum. " << endl;
+	}
+}
+void BaseNaturalObj::operator--()
+{
+	if (m_size != 0) {
+		m_size--;
+		cout << m_objectname
+			<< " has lessened in size." << endl;
+	}
+	else {
+		cout << m_objectname
+			<< " has pulled a Benjamin Button and become nonexistant in size. "
+			<< endl;
+	}
 }
