@@ -87,6 +87,9 @@
     <ClCompile Include="House.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Flower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseNaturalObj.h">
@@ -161,14 +164,23 @@
     <ClInclude Include="House.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Flower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="ClassDiagram.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="FixedUpdatedClassDiagram.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="DriverList.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="fixedUpdatedDriverList.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

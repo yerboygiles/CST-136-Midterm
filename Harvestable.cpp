@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "Harvestable.h"
 
 Harvestable::Harvestable(string name, uint8 size,
@@ -29,25 +31,21 @@ void Harvestable::setAltResource(Resource resource)
 
 Resource Harvestable::beHarvested()
 {
-	if (!(rand() % 4)) {
-		if (!CheckStatus(barren)) {
-			AddStatus(barren);
-		}
+	if ((rand() % 6)==1) {
+		AddStatus(barren);
 		RemoveStatus(fruited);
 	}
-	//Deteriorate();
+	Deteriorate();
 	return m_resource;
 }
 
 Resource Harvestable::beAltHarvested()
 {
-	if (!(rand() % 4)) {
-		if (!CheckStatus(barren)) {
-			AddStatus(barren);
-		}
+	if ((rand() % 6)==1) {
+		AddStatus(barren);
 		RemoveStatus(fruited);
 	}
-	//Deteriorate();
+	Deteriorate();
 	return m_altresource;
 }
 

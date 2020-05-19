@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #pragma once
 #include <stdio.h>		/* NULL */
 #include <string>		/* string */
@@ -21,14 +23,6 @@ typedef unsigned _int8 uint8;
 class BaseNaturalObj
 {
 public:
-	string statustostring[16] = {
-		"dead", "alive",
-		"scared", "happy", "sad",
-		"sick", "tired",
-		"wilting", "blooming", "fullyaged", "fruited", "barren",
-		"hungry", "injured",
-		"beautiful", "ugly"
-	};
 	BaseNaturalObj();
 	BaseNaturalObj(string name,uint8 size);
 	BaseNaturalObj(Status status);
@@ -47,8 +41,17 @@ public:
 	void operator--();
 protected:
 	uint8 m_statussize=0;
-	Status* m_statuschain;
+	Status* m_statuschain=nullptr;
 	uint8 m_size;
 	string m_objectname;
+private:
+	string statustostring[16] = {
+		"dead", "alive",
+		"scared", "happy", "sad",
+		"sick", "tired",
+		"wilting", "blooming", "fullyaged", "fruited", "barren",
+		"hungry", "injured",
+		"beautiful", "ugly"
+	};
 };
 

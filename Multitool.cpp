@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "Multitool.h"
 
 Multitool::Multitool()

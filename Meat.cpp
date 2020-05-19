@@ -4,6 +4,3 @@ Meat::Meat()
 	:Resource("Meat", 5, true, meat)
 {
 }
-Meat::~Meat() 
-{
-}

@@ -1,7 +1,10 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "Flora.h"
 
-Flora::Flora(Resource resource, Resource altresource,string name, uint8 size)
-	:Harvestable(name, size, resource,altresource)
+Flora::Flora(Resource resource, Resource altresource, string name, uint8 size)
+	:Harvestable(name, size, resource, altresource),
+	m_growth(250)
 {
 }
 
@@ -10,9 +13,8 @@ void Flora::Grow()
 	if (!CheckStatus(dead)) {
 		if (m_growth + 50 >= 250) {
 			m_growth = 250;
-			AddStatus(fruited);
-			RemoveStatus(barren);
 			AddStatus(blooming);
+			AddStatus(fruited);
 		}
 		else {
 			RemoveStatus(blooming);
@@ -26,10 +28,7 @@ void Flora::Deteriorate()
 	if (!CheckStatus(dead)) {
 		if (m_growth - 50 <= 0) {
 			m_growth = 0;
-			AddStatus(barren);
-			RemoveStatus(fruited);
 			AddStatus(dead);
-			RemoveStatus(blooming);
 		}
 		else {
 			RemoveStatus(blooming);

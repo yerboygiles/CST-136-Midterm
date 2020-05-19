@@ -5,6 +5,5 @@ class Feather :
 {
 public:
 	Feather();
-	~Feather();
 };
 

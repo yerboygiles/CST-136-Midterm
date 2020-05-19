@@ -1,10 +1,10 @@
 //Name: Theodor Giles
 //Programming Assignment: CST 136 Midterm Implementation
-#include "Rock.h"
+#include "Flower.h"
 
-Rock::Rock()
-	:Harvestable("Rock",30,Stone(),Iron())
+Flower::Flower()
+	:Flora(Fiber(),Fiber(),"Flower",1)
 {
-	setObjectName("Rock");
+	setObjectName("Flower");
 	AddStatus(fruited);
 }

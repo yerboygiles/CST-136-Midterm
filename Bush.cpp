@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "Bush.h"
 
 Bush::Bush() 
@@ -5,8 +7,4 @@ Bush::Bush()
 {
 	setObjectName("Bush");
 	AddStatus(fruited);
-}
-
-Bush::~Bush()
-{
 }

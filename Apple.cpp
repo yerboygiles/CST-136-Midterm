@@ -5,6 +5,3 @@ Apple::Apple()
 {
 }
 
-Apple::~Apple()
-{
-}

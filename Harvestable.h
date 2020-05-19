@@ -1,7 +1,9 @@
 #pragma once
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
+#pragma once
 #include "BaseNaturalObj.h"
 #include "Resource.h"
-//#include "Human.h"
 class Harvestable : public virtual BaseNaturalObj
 {
 public:

@@ -5,6 +5,5 @@ class Meat :
 {
 public:
 	Meat();
-	~Meat();
 };
 

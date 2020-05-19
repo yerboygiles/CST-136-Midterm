@@ -1,0 +1,32 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
+
+All the natural resources, animals, etc will first be instantiated, including
+Adam and Eve, who are humans, and Fido, a very aggressive dog. 
+
+Adam first harvests a bush, a tree, and a rock so he can craft a Multitool.
+If this somehow makes him tired, there is a cout, and he will eventually need
+to eat, and sleep in the house he makes later on.
+
+Now that he has a multitool, he harvests a bush and eats its berries in 
+case hes hungry yet. This will remove hungry statuses.
+
+He then harvests a flower, and also goes around to gather more resources
+with his multitool to gain the resources required for a knife.
+
+He compares the knife and multitool as some sort of very primitive caveman
+research, and finds that the multitool is bigger.
+
+Then, he hunts a chicken, hitting it many times with his knife until he can
+harvest it for meat and feathers.
+
+Fido approaches adam and barks, scaring him. The dog also bites adam, 
+lowering his health.
+
+Being scared by the dog makes him want to make a house, so he gathers the
+required resources, and crafts a house, and moves into it.
+
+He adds Eve to the list of people who live in his house, as well as his baby 
+that he makes with eve, and lets you name.
+
+Eve goes out and nurtures/waters the bushes around, and adam rests in his house after a long day. 

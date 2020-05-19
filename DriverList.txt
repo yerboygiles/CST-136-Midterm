@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 I'd like it to be as "realistic" as possible, so I will implement it that way.
 
 I will start by instantiating one of each flora, so one bush, one tree, and one flower

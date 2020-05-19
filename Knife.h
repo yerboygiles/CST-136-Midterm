@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #pragma once
 #include "Craftable.h"
 #include "Iron.h"
@@ -8,8 +10,5 @@ class Knife :
 {
 public:
 	Knife();
-	~Knife();
-private:
-	const Resource m_resourcesneeded[3] = { Iron(),Wood(),Fiber() };
 };
 

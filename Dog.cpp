@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "Dog.h"
 
 Dog::Dog(string name)
@@ -26,5 +28,10 @@ void Dog::Bite(Fauna& tobite)
 
 void Dog::BarkAt(Fauna& barkat)
 {
+	cout << m_objectname
+		<< " barks at "
+		<< barkat.getObjectName()
+		<< "."
+		<< endl;
 	barkat.AddStatus(scared);
 }

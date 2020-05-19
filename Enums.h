@@ -1,9 +1,11 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #pragma once
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-enum ResourceType { apple = 0, meat, berry, flower,
+enum ResourceType { apple = 0, meat, berry,
 	fiber, feather, wood, 
 	stone, iron, 
 	craftable, knife, multitool, house,

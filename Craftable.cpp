@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "Craftable.h"
 
 Craftable::Craftable(string name, uint8 val, 

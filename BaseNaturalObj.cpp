@@ -1,16 +1,14 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "BaseNaturalObj.h"
 
 BaseNaturalObj::BaseNaturalObj()
-	:m_statuschain(new Status[1])
 {
-	m_statuschain[0] = active;
 }
 
 BaseNaturalObj::BaseNaturalObj(string name, uint8 size)
-	:m_objectname(name),m_size(size),
-	m_statuschain(new Status[1])
+	:m_objectname(name),m_size(size)
 {
-	m_statuschain[0] = active;
 }
 
 BaseNaturalObj::BaseNaturalObj(Status status)
@@ -20,8 +18,10 @@ BaseNaturalObj::BaseNaturalObj(Status status)
 
 BaseNaturalObj::~BaseNaturalObj()
 {
-	delete[] m_statuschain;
-	m_statuschain = nullptr;
+	if (m_statuschain != nullptr) {
+		delete[] m_statuschain;
+		m_statuschain = nullptr;
+	}
 }
 
 uint8 BaseNaturalObj::getSize()
@@ -36,55 +36,65 @@ void BaseNaturalObj::setSize(uint8 size)
 
 void BaseNaturalObj::AddStatus(Status newstatus)
 {
-	Status* resize_statuschain = new Status[m_statussize + 1];
+	if (!CheckStatus(newstatus)) {
+		Status* resize_statuschain = new Status[m_statussize + 1];
 
-	for (int i = 0; i < m_statussize; i++) {
-		resize_statuschain[i] = m_statuschain[i];
+		for (int i = 0; i < m_statussize; i++) {
+			resize_statuschain[i] = m_statuschain[i];
+		}
+
+		resize_statuschain[m_statussize] = newstatus;
+		m_statussize++;
+		delete[] m_statuschain;
+		m_statuschain = nullptr;
+		m_statuschain = new Status[m_statussize];
+
+		for (int i = 0; i < m_statussize; i++) {
+			m_statuschain[i] = resize_statuschain[i];
+		}
+		delete[] resize_statuschain;
+		resize_statuschain = nullptr;
+		cout << m_objectname
+			<< " is now "
+			<< statustostring[newstatus] << endl;
 	}
-
-	resize_statuschain[m_statussize] = newstatus;
-	m_statussize++;
-	delete[] m_statuschain;
-	m_statuschain = nullptr;
-	m_statuschain = new Status[m_statussize];
-
-	for (int i = 0; i < m_statussize; i++) {
-		m_statuschain[i] = resize_statuschain[i];
+	else {
+		cout << m_objectname << " is already " << statustostring[newstatus] << endl;
 	}
-	delete[] resize_statuschain;
-	resize_statuschain = nullptr;
-	cout << m_objectname
-		<< " is now "
-		<< statustostring[newstatus] << endl;
 }
 
 void BaseNaturalObj::RemoveStatus(Status rmvstatus)
 {
-	uint8_t down = 0;
-	Status* resize_statuschain = new Status[m_statussize - 1];
-	for (int i = 0; i < m_statussize; i++) {
-		if (m_statuschain[i] == rmvstatus) {
-			down = 1;
-		}
-		else {
-			resize_statuschain[i - down] = m_statuschain[i];
-		}
-	}
-	if (down) {
-		m_statussize--;
-		delete[] m_statuschain;
-		m_statuschain = nullptr;
-		m_statuschain = new Status[m_statussize];
+	if (CheckStatus(rmvstatus)) {
+		uint8_t down = 0;
+		Status* resize_statuschain = new Status[m_statussize - 1];
 		for (int i = 0; i < m_statussize; i++) {
-			m_statuschain[i] = resize_statuschain[i];
+			if (m_statuschain[i] == rmvstatus) {
+				down = 1;
+			}
+			else {
+				resize_statuschain[i - down] = m_statuschain[i];
+			}
 		}
+		if (down) {
+			m_statussize--;
+			delete[] m_statuschain;
+			m_statuschain = nullptr;
+			m_statuschain = new Status[m_statussize];
+			for (int i = 0; i < m_statussize; i++) {
+				m_statuschain[i] = resize_statuschain[i];
+			}
 
+		}
+		delete[] resize_statuschain;
+		resize_statuschain = nullptr;
+		cout << m_objectname
+			<< " is no longer "
+			<< statustostring[rmvstatus] << endl;
 	}
-	delete[] resize_statuschain;
-	resize_statuschain = nullptr;
-	cout << m_objectname
-		<< " is no longer "
-		<< statustostring[rmvstatus] << endl;
+	else {
+		cout << m_objectname << " is not " << statustostring[rmvstatus] << endl;
+	}
 }
 
 bool BaseNaturalObj::CheckStatus(Status chkstatus)

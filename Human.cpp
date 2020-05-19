@@ -1,4 +1,14 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #include "Human.h"
+
+string resourcetostring[14] = {
+	"apple", "meat", "berry",
+	"fiber", "feather", "wood",
+	"stone", "iron",
+	"craftable", "knife", "multitool", "house",
+	"none"
+};
 
 Human::Human(string name, bool sex)
 	:BaseNaturalObj(name, 10+(rand()%10)),
@@ -6,6 +16,36 @@ Human::Human(string name, bool sex)
 {
 	m_inventory = nullptr;
 	m_inventorysize = 0;
+}
+Human::Human(const Human& other)
+	:BaseNaturalObj(other.m_objectname, other.m_size),
+	Fauna(other.m_sex, 250)
+{
+	m_inventory = nullptr;
+	m_inventorysize = 0;
+}
+Human& Human::operator=(const Human& other)
+{
+	BaseNaturalObj(other.m_objectname, other.m_size);
+	Fauna(other.m_sex, 250);
+	m_inventory = nullptr;
+	m_inventorysize = 0;
+	return *this;
+}
+Human::Human(Human&& other)
+	: BaseNaturalObj(other.m_objectname, other.m_size),
+	Fauna(other.m_sex, 250)
+{
+	m_inventory = nullptr;
+	m_inventorysize = 0;
+}
+Human& Human::operator=(Human&& other)
+{
+	BaseNaturalObj(other.m_objectname, other.m_size);
+	Fauna(other.m_sex, 250);
+	m_inventory = nullptr;
+	m_inventorysize = 0;
+	return *this;
 }
 Human::Human(string name, bool sex,uint8 size)
 	:BaseNaturalObj(name, size),
@@ -47,9 +87,10 @@ void Human::AddItem(Resource additem)
 void Human::RemoveItem(Resource rmvitem)
 {
 	uint8_t down = 0;
-	Resource* resize_inventory = new Resource[m_inventorysize - 1];
+	Resource* resize_inventory = new Resource[m_inventorysize];
 	for (int i = 0; i < m_inventorysize; i++) {
-		if (m_inventory[i] == rmvitem) {
+
+		if (m_inventory[i] == rmvitem&&down==0) {
 			down = 1;
 		}
 		else {
@@ -81,6 +122,17 @@ bool Human::CheckItem(Resource chkitem)
 	return there;
 }
 
+Resource Human::FindItem(Resource fnditem)
+{
+	Resource there;
+	for (int i = 0; i < m_inventorysize; i++) {
+		if (m_inventory[i] == fnditem) {
+			there = m_inventory[i];
+		}
+	}
+	return there;
+}
+
 void Human::DisplayItems()
 {
 	cout << m_objectname << " has ";
@@ -102,15 +154,25 @@ void Human::Harvest(Harvestable& toharvest)
 		<< " is harvesting "
 		<< toharvest.getObjectName()
 		<< endl;
+	if (toharvest.getObjectName() == "Flower") {
+		cout << "Harvesting a flower made "
+			<< m_objectname
+			<< " happy!" << endl;
+		AddStatus(happy);
+	}
 	if (toharvest.CheckStatus(fruited)) {
 
 		AddItem(toharvest.beHarvested());
 		if (CheckItem(Multitool())) {
 			AddItem(toharvest.beAltHarvested());
 		}
+		if ((rand() % 5)==1) {
+			AddStatus(tired);
+			AddStatus(hungry);
+		}
 	}
 	else {
-		cout << "Can't harvest a non-fruited plant" << endl;
+		cout << "Can't harvest a non-fruited harvestable" << endl;
 	}
 }
 
@@ -126,6 +188,12 @@ void Human::Attack(Fauna& attack)
 		damage *= 2;
 	}
 	attack.lowerHealth(damage);
+	if (attack.isDead()) {
+		cout << m_objectname
+			<< " killed "
+			<< attack.getObjectName()
+			<< endl;
+	}
 }
 
 void Human::EatFromInventory()
@@ -139,13 +207,26 @@ void Human::EatFromInventory()
 
 void Human::EatFromInventory(Resource itemtoeat)
 {
-	RemoveItem(itemtoeat);
-	RemoveStatus(hungry);
-	if (m_health + 10 > 250) {
-		m_health = 250;
+	if (CheckItem(itemtoeat)) {
+		cout << m_objectname
+			<< " ate a "
+			<< resourcetostring[itemtoeat.getType()]
+			<< endl;
+		RemoveItem(itemtoeat);
+		RemoveStatus(hungry);
+		if (m_health + 10 > 250) {
+			m_health = 250;
+		}
+		else {
+			m_health += 10;
+		}
 	}
 	else {
-		m_health += 10;
+		cout << m_objectname
+			<< " does not have a "
+			<< resourcetostring[itemtoeat.getType()]
+			<< " to eat."
+			<< endl;
 	}
 }
 
@@ -164,7 +245,10 @@ void Human::Craft(Craftable tocraft)
 		
 	}
 	if (canbuild) {
-		AddItem(tocraft);
+		AddItem(tocraft); 
+		for (int i = 0; i < tocraft.getAmtResources(); i++) {
+			RemoveItem(tocraft[i]);
+		}
 		cout << m_objectname
 			<< " crafted "
 			<< resourcetostring[tocraft.getType()]
@@ -177,6 +261,40 @@ void Human::Craft(Craftable tocraft)
 			<< " because of a lack of "
 			<< resourcetostring[temp.getType()]
 			<< "." << endl;
+	}
+}
+
+void Human::MoveIn()
+{
+	if (CheckItem(House())) {
+		if (ownhouse.AddInhabitant(m_objectname)) {
+			m_movedin = true;
+			RemoveStatus(scared);
+		}
+		else {
+			m_movedin = false;
+		}
+	}
+}
+void Human::MoveIntoHouse(string human)
+{
+	if (CheckItem(House())) {
+		if (ownhouse.AddInhabitant(human)) {
+			m_movedin = true;
+		}
+		else {
+			m_movedin = false;
+		}
+	}
+}
+
+void Human::Rest()
+{
+	if (m_movedin) {
+		cout << m_objectname
+			<< " rested in the house he currently resides in."
+			<< endl;
+		RemoveStatus(tired);
 	}
 }
 

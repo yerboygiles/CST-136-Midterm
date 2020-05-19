@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #pragma once
 
 #include "Flora.h"
@@ -10,6 +12,5 @@ class Bush :
 {
 public:
 	Bush();
-	~Bush();
 };
 

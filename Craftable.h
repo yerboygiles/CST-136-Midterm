@@ -1,3 +1,5 @@
+//Name: Theodor Giles
+//Programming Assignment: CST 136 Midterm Implementation
 #pragma once
 #include "Resource.h"
 class Craftable :
@@ -9,6 +11,7 @@ public:
 	~Craftable();
 	uint8 getAmtResources();
 	Resource operator[](int i);
+protected:
 	Resource m_resourcesneeded[10];
 	uint8 m_amtresources;
 };
